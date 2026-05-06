@@ -1,0 +1,30 @@
+statefulset:
+  replicas: 3
+  podSecurityContext:
+    fsGroup: 1000
+    runAsUser: 1000
+    runAsGroup: 1000
+  resources:
+    requests:
+      memory: "256Mi" # You should have 3GB+ of RAM free on your device; else, you can reduce this to 500Mi (this will result in your PC needing just 1.5 GB of RAM free)
+      cpu: 200m  # The same with this, you can reduce it to 500m CPU if you don't have up to 3 CPU cores (1 CPU core * 3 replicas)
+    limits:
+      memory: "500Mi"
+      cpu: 500m
+  # podAntiAffinity: # This was giving error while performing helm
+  #   type: ""
+  nodeSelector:
+    kubernetes.io/hostname: minikube
+
+storage:
+  persistentVolume:
+    size: 2Gi # Make sure you have 15GB+ of free storage on your local machine, if not, you can reduce it to 2 - 3 Gi
+    storageClass: standard
+
+tls:
+  enabled: false
+
+init:
+  jobs:
+    wait:
+      enabled: true

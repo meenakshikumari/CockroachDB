@@ -1,0 +1,103 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: books-script
+data:
+  # The Go script we converted earlier
+  main.go: |
+    package main
+    import (
+        "context"
+        "encoding/json"
+        "flag"
+        "fmt"
+        "log"
+        "math"
+        "os"
+        "time"
+        "github.com/jackc/pgx/v5/pgxpool"
+    )
+
+    const (
+        DDL = `CREATE TABLE IF NOT EXISTS books (
+            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+            name STRING NOT NULL,
+            author STRING NOT NULL,
+            isbn STRING UNIQUE,
+            published_year INT4,
+            pages INT4,
+            genre STRING,
+            price DECIMAL(10,2),
+            created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+        );`
+        INSERT_SQL = `INSERT INTO books (name, author, isbn, published_year, pages, genre, price) VALUES ($1, $2, $3, $4, $5, $6, $7);`
+        UPDATE_SQL = `UPDATE books SET price = $1, pages = $2 WHERE isbn = $3;`
+        DELETE_SQL = `DELETE FROM books WHERE isbn = $1;`
+        GET_SQL    = `SELECT id, name, author, isbn, published_year, pages, genre, price, created_at FROM books WHERE isbn = $1;`
+    )
+
+    type Book struct {
+        ID            string    `json:"id"`
+        Name          string    `json:"name"`
+        Author        string    `json:"author"`
+        ISBN          string    `json:"isbn"`
+        PublishedYear *int      `json:"published_year"`
+        Pages         *int      `json:"pages"`
+        Genre         string    `json:"genre"`
+        Price         float64   `json:"price"`
+        CreatedAt     time.Time `json:"created_at"`
+    }
+
+    func loadBooks(path string) ([]Book, error) {
+        data, err := os.ReadFile(path)
+        if err != nil {
+            return nil, err
+        }
+        var books []Book
+        err = json.Unmarshal(data, &books)
+        return books, err
+    }
+
+    func main() {
+        dsn := flag.String("dsn", "", "CockroachDB DSN")
+        jsonPath := flag.String("json", "/app/books.json", "Path to books JSON")
+        flag.Parse()
+
+        books, _ := loadBooks(*jsonPath)
+        fmt.Printf("Loaded %d books from %s\n", len(books), *jsonPath)
+
+        ctx := context.Background()
+        db, err := pgxpool.New(ctx, *dsn)
+        if err != nil {
+            log.Fatalf("Unable to connect: %v", err)
+        }
+        defer db.Close()
+
+        fmt.Println("Creating table...")
+        db.Exec(ctx, DDL)
+
+        fmt.Println("Inserting books...")
+        for i := 0; i < 20 && i < len(books); i++ {
+            b := books[i]
+            db.Exec(ctx, INSERT_SQL, b.Name, b.Author, b.ISBN, b.PublishedYear, b.Pages, b.Genre, b.Price)
+        }
+
+        fmt.Println("Updating books...")
+        for i := 0; i < 7 && i < len(books); i++ {
+            b := books[i]
+            newPrice := math.Round((b.Price+1.23)*100) / 100
+            newPages := 100
+            if b.Pages != nil { newPages = *b.Pages + 5 }
+            db.Exec(ctx, UPDATE_SQL, newPrice, newPages, b.ISBN)
+        }
+
+        fmt.Println("Retrieving records...")
+        for i := 0; i < 15 && i < len(books); i++ {
+            var res Book
+            err := db.QueryRow(ctx, GET_SQL, books[i].ISBN).Scan(&res.ID, &res.Name, &res.Author, &res.ISBN, &res.PublishedYear, &res.Pages, &res.Genre, &res.Price, &res.CreatedAt)
+            if err == nil {
+                fmt.Printf("Found: %s ($%.2f)\n", res.Name, res.Price)
+            }
+        }
+        fmt.Println("Simulation Complete.")
+    }

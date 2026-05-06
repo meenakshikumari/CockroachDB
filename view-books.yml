@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: view-books
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: client
+          image: cockroachdb/cockroach:v25.3.2
+          command: ["bash", "-lc"]
+          args:
+            - |
+              cockroach sql \
+                --insecure \
+                --host=crdb-cockroachdb-public:26257 \
+                --database=defaultdb \
+                --format=records \
+                --execute="SELECT * FROM public.books;"

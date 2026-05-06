@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: books-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: simulator
+        image: golang:1.26-alpine
+        workingDir: /app
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            apk add --no-cache git
+            cp /mnt/main.go .
+            cp /mnt/books.json .
+            go mod init simulator
+            # Explicitly getting the pool package
+            go get github.com/jackc/pgx/v5/pgxpool
+            go run main.go --dsn="postgresql://root@crdb-cockroachdb-public:26257/defaultdb?sslmode=disable"
+        volumeMounts:
+        - name: script-vol
+          mountPath: /mnt
+      restartPolicy: Never
+      volumes:
+      - name: script-vol
+        configMap:
+          name: books-script
+          defaultMode: 0555
+

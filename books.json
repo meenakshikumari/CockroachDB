@@ -1,0 +1,182 @@
+[
+    {
+      "name": "The Bright Signal",
+      "author": "Ava Hart",
+      "isbn": "9783218196000",
+      "published_year": 2020,
+      "pages": 234,
+      "genre": "Fantasy",
+      "price": 10.99
+    },
+    {
+      "name": "The Hidden Library",
+      "author": "Liam Stone",
+      "isbn": "9783863794026",
+      "published_year": 1993,
+      "pages": 358,
+      "genre": "Romance",
+      "price": 30.2
+    },
+    {
+      "name": "The Shadow Archive",
+      "author": "Maya Chen",
+      "isbn": "9781615594078",
+      "published_year": 2001,
+      "pages": 404,
+      "genre": "History",
+      "price": 16.21
+    },
+    {
+      "name": "The Bright Voyage",
+      "author": "Noah Rivers",
+      "isbn": "9785931034133",
+      "published_year": 1987,
+      "pages": 507,
+      "genre": "Fantasy",
+      "price": 13.14
+    },
+    {
+      "name": "The Shadow Garden",
+      "author": "Zara Malik",
+      "isbn": "9785534192834",
+      "published_year": 2004,
+      "pages": 404,
+      "genre": "Sci-Fi",
+      "price": 28.13
+    },
+    {
+      "name": "The Crystal Signal",
+      "author": "Ethan Brooks",
+      "isbn": "9785030564135",
+      "published_year": 2009,
+      "pages": 508,
+      "genre": "Self-Help",
+      "price": 20.79
+    },
+    {
+      "name": "The Atomic Atlas",
+      "author": "Iris Park",
+      "isbn": "9787242388493",
+      "published_year": 2025,
+      "pages": 442,
+      "genre": "Romance",
+      "price": 18.5
+    },
+    {
+      "name": "The First Library",
+      "author": "Caleb Nguyen",
+      "isbn": "9787101226911",
+      "published_year": 2017,
+      "pages": 528,
+      "genre": "Romance",
+      "price": 24.47
+    },
+    {
+      "name": "The Crystal River",
+      "author": "Sofia Diaz",
+      "isbn": "9781845146276",
+      "published_year": 2004,
+      "pages": 599,
+      "genre": "Fiction",
+      "price": 31.15
+    },
+    {
+      "name": "The Crystal Archive",
+      "author": "Jude Bennett",
+      "isbn": "9784893252883",
+      "published_year": 1996,
+      "pages": 632,
+      "genre": "Fiction",
+      "price": 40.47
+    },
+    {
+      "name": "The Last Compass",
+      "author": "Nina Volkova",
+      "isbn": "9784303911713",
+      "published_year": 2018,
+      "pages": 451,
+      "genre": "History",
+      "price": 29.53
+    },
+    {
+      "name": "The Crystal Garden",
+      "author": "Omar Haddad",
+      "isbn": "9784896383461",
+      "published_year": 1988,
+      "pages": 251,
+      "genre": "Thriller",
+      "price": 36.38
+    },
+    {
+      "name": "The Silent Signal",
+      "author": "Priya Kapoor",
+      "isbn": "9781509839308",
+      "published_year": 2008,
+      "pages": 649,
+      "genre": "Fantasy",
+      "price": 28.05
+    },
+    {
+      "name": "The Hidden Compass",
+      "author": "Felix Romero",
+      "isbn": "9781834738291",
+      "published_year": 2025,
+      "pages": 180,
+      "genre": "Self-Help",
+      "price": 19.15
+    },
+    {
+      "name": "The Lost Signal",
+      "author": "Tara Quinn",
+      "isbn": "9781165667017",
+      "published_year": 2010,
+      "pages": 368,
+      "genre": "Fiction",
+      "price": 41.37
+    },
+    {
+      "name": "The Last Signal",
+      "author": "Hana Sato",
+      "isbn": "9783387262476",
+      "published_year": 2005,
+      "pages": 467,
+      "genre": "Nonfiction",
+      "price": 42.01
+    },
+    {
+      "name": "The Crystal Archive",
+      "author": "Leo Fischer",
+      "isbn": "9780801326776",
+      "published_year": 1984,
+      "pages": 573,
+      "genre": "Nonfiction",
+      "price": 42.31
+    },
+    {
+      "name": "The Hidden Atlas",
+      "author": "Mila Novak",
+      "isbn": "9784746872343",
+      "published_year": 2005,
+      "pages": 180,
+      "genre": "Nonfiction",
+      "price": 16.58
+    },
+    {
+      "name": "The Hidden Compass",
+      "author": "Arthur Wells",
+      "isbn": "9780097882086",
+      "published_year": 1983,
+      "pages": 713,
+      "genre": "Fantasy",
+      "price": 39.42
+    },
+    {
+      "name": "The Silent Atlas",
+      "author": "Selene Ortiz",
+      "isbn": "9781939909169",
+      "published_year": 1991,
+      "pages": 190,
+      "genre": "Self-Help",
+      "price": 33.79
+    }
+  ]
